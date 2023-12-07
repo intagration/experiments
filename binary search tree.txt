@@ -1,0 +1,173 @@
+binary search tree:
+
+#include<stdio.h>
+#include<stdlib.h>
+struct node {
+ int data;
+ struct node *left, *right;
+};
+struct node *createTree(struct node *root, int data);
+void search(struct node *root);
+void findMax(struct node *root);
+struct node *deleteNode(struct node *root, int data);
+struct node *findMin(struct node *root);
+void preOrder(struct node *root);
+void inOrder(struct node *root);
+void postOrder(struct node *root);
+struct node *root = NULL;
+int main() {
+ int data, choice, i, n;
+ while(1) {
+ printf("\n1. Insertion in Binary Search Tree");
+ printf("\n2. Search Element in Binary Search Tree");
+ printf("\n3. Delete Element in Binary Search Tree");
+ printf("\n4. Inorder\n5. Preorder\n6. Postorder");
+ printf("\n7. Find Min\n8. Find Max\n9. Exit");
+ printf("\nEnter your choice: ");
+ scanf("%d", &choice);
+ switch (choice) {
+ case 1: printf("\nEnter how many nodes you want to insert: ");
+ scanf("%d", &n);
+ printf("\nEnter values: ");
+ for (i = 0; i < n; i++) {
+ scanf("%d", &data);
+ root = createTree(root, data);
+ }
+ break;
+ case 2: search(root);
+ break;
+ case 3: printf("\nEnter the element to delete: ");
+ scanf("%d", &data);
+ root = deleteNode(root, data);
+ break;
+ case 4: printf("\nInorder Traversal: ");
+ inOrder(root);
+ break;
+ case 5: printf("\nPreorder Traversal: ");
+ preOrder(root);
+ break;
+ case 6: printf("\nPostorder Traversal: ");
+ postOrder(root);
+ break;
+ case 7: {
+ struct node *temp = findMin(root);
+ if (temp != NULL)
+ printf("\n%d is the minimum value in BST", temp->data);
+ else
+ printf("\nBST is empty");
+ break;
+ }
+ case 8: findMax(root);
+ break;
+ case 9: exit(0);
+ default: printf("WRONG CHOICE");
+ break;
+ }
+ }
+ return 0;
+}
+struct node *createTree(struct node *root, int data) {
+ if (root == NULL) {
+ struct node *temp = (struct node *)malloc(sizeof(struct node));
+ if (temp == NULL) {
+ printf("Memory allocation failed!\n");
+ exit(1);
+ }
+ temp->data = data;
+ temp->left = NULL;
+ temp->right = NULL;
+ return temp;
+ }
+ if (data < (root->data)) {
+ root->left = createTree(root->left, data);
+ } else if (data > root->data) {
+ root->right = createTree(root->right, data);
+ }
+ return root;
+}
+void preOrder(struct node *root) {
+ if (root != NULL) {
+ printf("%d ", root->data);
+ preOrder(root->left);
+ preOrder(root->right);
+ }
+}
+void inOrder(struct node *root) {
+ if (root != NULL) {
+ inOrder(root->left);
+ printf("%d ", root->data);
+ inOrder(root->right);
+ }
+}
+void postOrder(struct node *root) {
+ if (root != NULL) {
+ postOrder(root->left);
+ postOrder(root->right);
+ printf("%d ", root->data);
+ }
+}
+struct node *deleteNode(struct node *root, int data) {
+ if (root == NULL) {
+ printf("\nElement not found");
+ } else if (data < root->data) {
+ root->left = deleteNode(root->left, data);
+ } else if (data > root->data) {
+ root->right = deleteNode(root->right, data);
+ } else {
+ if (root->right && root->left) {
+ struct node *temp = findMin(root->right);
+ root->data = temp->data;
+ root->right = deleteNode(root->right, temp->data);
+ } else {
+ struct node *temp = root;
+ if (root->left == NULL) {
+ root = root->right;
+ } else if (root->right == NULL) {
+ root = root->left;
+ }
+ free(temp);
+ }
+ }
+ return root;
+}
+struct node *findMin(struct node *root) {
+ if (root == NULL) {
+ return NULL;
+ }
+ if (root->left != NULL) {
+ return findMin(root->left);
+ } else {
+ return root;
+ }
+}
+void findMax(struct node *root) {
+ if (root == NULL) {
+ printf("\nBST is empty");
+ return;
+ }
+ while (root->right != NULL) {
+ root = root->right;
+ }
+ printf("\n%d is the maximum value in BST", root->data);
+}
+void search(struct node *root) {
+ int data;
+ if (root == NULL) {
+ printf("\nBST is empty.");
+ return;
+ }
+ printf("\nEnter element to be searched: ");
+ scanf("%d", &data);
+ while (root != NULL) {
+ if (root->data == data) {
+ printf("\nKey element is present in BST");
+ return;
+ }
+ if (data < root->data) {
+ root = root->left;
+ } else {
+ root = root->right;
+ }
+ printf("\n Key not found in BST");
+ }
+}

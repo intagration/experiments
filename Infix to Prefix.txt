@@ -1,0 +1,138 @@
+Infix to Prefix
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX_SIZE 100
+
+// Stack structure
+struct Stack {
+    int top;
+    unsigned capacity;
+    char* array;
+};
+
+// Function to create a stack
+struct Stack* createStack(unsigned capacity) {
+    struct Stack* stack = (struct Stack*)malloc(sizeof(struct Stack));
+    stack->capacity = capacity;
+    stack->top = -1;
+    stack->array = (char*)malloc(stack->capacity * sizeof(char));
+    return stack;
+}
+
+// Function to check if the stack is empty
+int isEmpty(struct Stack* stack) {
+    return stack->top == -1;
+}
+
+// Function to push an element to the stack
+void push(struct Stack* stack, char item) {
+    stack->array[++stack->top] = item;
+}
+
+// Function to pop an element from the stack
+char pop(struct Stack* stack) {
+    if (!isEmpty(stack))
+        return stack->array[stack->top--];
+    return '$'; // '$' denotes an empty stack
+}
+
+// Function to check if a character is an operand
+int isOperand(char ch) {
+    return (ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z');
+}
+
+// Function to get the precedence of an operator
+int getPrecedence(char ch) {
+    switch (ch) {
+    case '+':
+    case '-':
+        return 1;
+    case '*':
+    case '/':
+        return 2;
+    case '^':
+        return 3;
+    }
+    return -1;
+}
+
+// Function to convert infix to prefix
+void infixToPrefix(char* infix) {
+    int length = strlen(infix);
+
+    // Reverse the infix expression
+    for (int i = 0, j = length - 1; i < j; i++, j--) {
+        char temp = infix[i];
+        infix[i] = infix[j];
+        infix[j] = temp;
+    }
+
+    // Create a stack for operators
+    struct Stack* stack = createStack(MAX_SIZE);
+
+    // Initialize the result string
+    char result[MAX_SIZE];
+    int resultIndex = 0;
+
+    // Traverse the reversed infix expression
+    for (int i = 0; i < length; i++) {
+        char c = infix[i];
+
+        if (isOperand(c)) {
+            result[resultIndex++] = c;
+        } else if (c == ')') {
+            push(stack, c);
+        } else if (c == '(') {
+            while (!isEmpty(stack) && stack->array[stack->top] != ')') {
+                result[resultIndex++] = pop(stack);
+            }
+            if (!isEmpty(stack) && stack->array[stack->top] == ')') {
+                pop(stack);
+            }
+        } else {
+            while (!isEmpty(stack) && getPrecedence(c) <= getPrecedence(stack->array[stack->top])) {
+                result[resultIndex++] = pop(stack);
+            }
+            push(stack, c);
+        }
+    }
+
+    // Pop the remaining operators from the stack
+    while (!isEmpty(stack)) {
+        result[resultIndex++] = pop(stack);
+    }
+
+    // Reverse the result to get the final prefix expression
+    for (int i = 0, j = resultIndex - 1; i < j; i++, j--) {
+        char temp = result[i];
+        result[i] = result[j];
+        result[j] = temp;
+    }
+
+    // Null-terminate the result string
+    result[resultIndex] = '\0';
+
+    // Print the prefix expression
+    printf("Prefix Expression: %s\n", result);
+
+    // Free the allocated memory
+    free(stack->array);
+    free(stack);
+}
+
+// Driver program
+int main() {
+    char infix[MAX_SIZE];
+
+    // Input infix expression
+    printf("Enter the infix expression: ");
+    gets(infix);
+
+    // Convert infix to prefix and display the result
+    infixToPrefix(infix);
+
+    return 0;
+}

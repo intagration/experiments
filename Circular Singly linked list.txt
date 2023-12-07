@@ -1,0 +1,209 @@
+Circular Singly linked list
+
+#include <stdio.h>
+#include <stdlib.h>
+struct Node {
+ int data;
+ struct Node* next;
+};
+struct Node* head = NULL;
+void create();
+void display();
+void insert_begin();
+void insert_end();
+void insert_pos();
+void delete_begin();
+void delete_end();
+void delete_pos();
+int main() {
+ int choice;
+ while (1) {
+ printf("\n*****\n");
+ printf("0. Create\n");
+ printf("1. Display\n");
+ printf("2. Insert Node at beginning\n");
+ printf("3. Insert Node in specific position\n");
+ printf("4. Insert Node at end of LinkedList\n");
+ printf("5. Delete Node at beginning\n");
+ printf("6. Delete Node at end\n");
+ printf("7. Delete Node at position\n");
+ printf("8. ** To exit **");
+ printf("\nEnter your choice: ");
+ scanf("%d", &choice);
+ switch (choice) {
+ case 0: create();
+ break;
+ case 1: display();
+ break;
+ case 2: insert_begin();
+ break;
+ case 3: insert_pos();
+ break;
+ case 4: insert_end();
+ break;
+ case 5: delete_begin();
+ break;
+ case 6: delete_end();
+ break;
+ case 7: delete_pos();
+ break;
+ case 8: exit(0);
+ default: printf("\nWrong Choice\n");
+ break;
+ }
+ }
+}
+void create() {
+ struct Node* temp;
+ temp = (struct Node*)malloc(sizeof(struct Node));
+ printf("Enter node data: ");
+ scanf("%d", &temp->data);
+ temp->next = temp;
+ if (head == NULL) {
+ head = temp;
+ } else {
+ struct Node* ptr = head;
+ while (ptr->next != head) {
+ ptr = ptr->next;
+ }
+ ptr->next = temp;
+ temp->next = head;
+ }
+}
+void display() {
+ if (head == NULL) {
+ printf("Circular Linked List is Empty\n");
+ return;
+ }
+ printf("Circular LinkedList: ");
+ struct Node* ptr = head;
+ do {
+ printf("%d ", ptr->data);
+ ptr = ptr->next;
+ } while (ptr != head);
+ printf("\n");
+}
+void insert_begin() {
+ struct Node* temp;
+ temp = (struct Node*)malloc(sizeof(struct Node));
+ printf("Enter node data: ");
+ scanf("%d", &temp->data);
+ temp->next = temp;
+ if (head == NULL) {
+ head = temp;
+ temp->next = head;
+ } else {
+ struct Node* ptr = head;
+ while (ptr->next != head) {
+ ptr = ptr->next;
+ }
+ temp->next = head;
+ head = temp;
+ ptr->next = head;
+ }
+}
+void insert_pos() {
+ struct Node* temp;
+ temp = (struct Node*)malloc(sizeof(struct Node));
+ printf("Enter node data: ");
+ scanf("%d", &temp->data);
+ temp->next = temp;
+ int pos;
+ printf("Enter position: ");
+ scanf("%d", &pos);
+ if (pos == 0) {
+ temp->next = head;
+ head = temp;
+ } else {
+ struct Node* ptr = head;
+ for (int i = 0; i < pos - 1; i++) {
+ ptr = ptr->next;
+ }
+ temp->next = ptr->next;
+ ptr->next = temp;
+ }
+}
+void insert_end() {
+ struct Node* temp;
+ temp = (struct Node*)malloc(sizeof(struct Node));
+ printf("Enter node data: ");
+ scanf("%d", &temp->data);
+ temp->next = temp;
+ if (head == NULL) {
+ head = temp;
+ temp->next = head;
+ } else {
+ struct Node* ptr = head;
+ while (ptr->next != head) {
+ ptr = ptr->next;
+ }
+ ptr->next = temp;
+ temp->next = head;
+ }
+}
+void delete_begin() {
+ if (head == NULL) {
+ printf("Circular Linked List is empty | Nothing to delete \n");
+ return;
+ } else if (head->next == head) {
+ struct Node* ptr = head;
+ head = NULL;
+ free(ptr);
+ } else {
+ struct Node* ptr = head;
+ while (ptr->next != head) {
+ ptr = ptr->next;
+ }
+ ptr->next = head->next;
+ struct Node* temp = head;
+ head = head->next;
+ free(temp);
+ }
+}
+void delete_end() {
+ if (head == NULL) {
+ printf("Circular Linked List is empty | Nothing to delete \n");
+ return;
+ } else if (head->next == head) {
+ struct Node* ptr = head;
+ head = NULL;
+ free(ptr);
+ } else {
+ struct Node* ptr = head;
+ struct Node* prev_ptr = NULL;
+ while (ptr->next != head) {
+ prev_ptr = ptr;
+ ptr = ptr->next;
+ }
+ prev_ptr->next = head;
+ free(ptr);
+ }
+}
+void delete_pos() {
+ int pos;
+ printf("Enter node position to delete: ");
+ scanf("%d", &pos);
+ if (head == NULL) {
+ printf("Circular Linked List is empty | Nothing to delete \n");
+ return;
+ } else if (pos == 0) {
+ struct Node* ptr = head;
+ while (ptr->next != head) {
+ ptr = ptr->next;
+ }
+ ptr->next = head->next;
+ struct Node* temp = head;
+ head = head->next;
+ free(temp);
+ } else {
+ struct Node* ptr = head;
+ struct Node* prev_ptr;
+ for (int i = 0; i < pos; i++) {
+ prev_ptr = ptr;
+ ptr = ptr->next;
+ }
+ prev_ptr->next = ptr->next;
+ free(ptr);
+ }
+}
+

@@ -1,0 +1,96 @@
+Stack using two queues
+#include <stdio.h>
+#include <stdlib.h>
+
+// Structure to represent a queue node
+struct QueueNode {
+    int data;
+    struct QueueNode* next;
+};
+
+// Structure to represent a queue
+struct Queue {
+    struct QueueNode* front;
+    struct QueueNode* rear;
+};
+
+// Function to initialize a new queue
+struct Queue* createQueue() {
+    struct Queue* queue = (struct Queue*)malloc(sizeof(struct Queue));
+    queue->front = queue->rear = NULL;
+    return queue;
+}
+
+// Function to enqueue a new element into the queue
+void enqueue(struct Queue* queue, int data) {
+    struct QueueNode* newNode = (struct QueueNode*)malloc(sizeof(struct QueueNode));
+    newNode->data = data;
+    newNode->next = NULL;
+
+    if (queue->rear == NULL) {
+        queue->front = queue->rear = newNode;
+        return;
+    }
+
+    queue->rear->next = newNode;
+    queue->rear = newNode;
+}
+
+// Function to dequeue an element from the queue
+int dequeue(struct Queue* queue) {
+    if (queue->front == NULL)
+        return -1; // Queue is empty
+
+    struct QueueNode* temp = queue->front;
+    int data = temp->data;
+
+    queue->front = temp->next;
+
+    if (queue->front == NULL)
+        queue->rear = NULL;
+
+    free(temp);
+    return data;
+}
+
+// Function to push an element onto the stack
+void push(struct Queue* q1, struct Queue* q2, int data) {
+    // Enqueue the element to q1
+    enqueue(q1, data);
+}
+
+// Function to pop an element from the stack
+int pop(struct Queue* q1, struct Queue* q2) {
+    if (q1->front == NULL)
+        return -1; // Stack is empty
+
+    // Move all elements from q1 to q2 except the last one
+    while (q1->front->next != NULL) {
+        enqueue(q2, dequeue(q1));
+    }
+
+    // Pop the last element from q1
+    int popped = dequeue(q1);
+
+    // Swap q1 and q2
+    struct Queue* temp = q1;
+    q1 = q2;
+    q2 = temp;
+
+    return popped;
+}
+
+int main() {
+    struct Queue* q1 = createQueue();
+    struct Queue* q2 = createQueue();
+
+    push(q1, q2, 1);
+    push(q1, q2, 2);
+    push(q1, q2, 3);
+
+    printf("Popped element: %d\n", pop(q1, q2));
+    printf("Popped element: %d\n", pop(q1, q2));
+    printf("Popped element: %d\n", pop(q1, q2));
+
+    return 0;
+}
