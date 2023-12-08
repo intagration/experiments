@@ -1,0 +1,28 @@
+Area of circle method calling
+import java.util.Scanner;
+
+public class CircleAreaCalculator {
+    public static void main(String[] args) {
+        // Create a Scanner object to take input from the user
+        Scanner scanner = new Scanner(System.in);
+
+        // Input the radius
+        System.out.print("Enter the radius of the circle: ");
+        double radius = scanner.nextDouble();
+
+        // Close the scanner to prevent resource leaks
+        scanner.close();
+
+        // Call the method to calculate and display the area
+        calculateAndDisplayArea(radius);
+    }
+
+    // Method to calculate and display the area of a circle
+    private static void calculateAndDisplayArea(double radius) {
+        // Calculate the area using the formula: area = π * r^2
+        double area = Math.PI * Math.pow(radius, 2);
+
+        // Display the area
+        System.out.println("Area of the circle with radius " + radius + " is: " + area);
+    }
+}

@@ -1,0 +1,35 @@
+class Book having data member id, name and price
+public class Book {
+    // Data members
+    private int id;
+    private String name;
+    private double price;
+
+    // Parameterized constructor
+    public Book(int id, String name, double price) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+    }
+
+    // Method to display book details
+    public void display() {
+        System.out.println("Book ID: " + id);
+        System.out.println("Book Name: " + name);
+        System.out.println("Book Price: $" + price);
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        // Create two objects of the Book class using the parameterized constructor
+        Book book1 = new Book(101, "Java Programming", 29.99);
+        Book book2 = new Book(102, "Data Structures and Algorithms", 39.95);
+
+        // Display details of both books
+        System.out.println("Details of Book 1:");
+        book1.display();
+
+        System.out.println("Details of Book 2:");
+        book2.display();
+    }
+}

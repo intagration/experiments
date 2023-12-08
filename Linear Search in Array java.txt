@@ -1,0 +1,50 @@
+Linear Search in Array java
+import java.util.Scanner;
+
+public class LinearSearch {
+    public static void main(String[] args) {
+        // Create a Scanner object to take input from the user
+        Scanner scanner = new Scanner(System.in);
+
+        // Input the number of elements in the array
+        System.out.print("Enter the number of elements (n): ");
+        int n = scanner.nextInt();
+
+        // Create an array to store the numbers
+        int[] numbers = new int[n];
+
+        // Input the elements of the array
+        System.out.println("Enter the elements of the array:");
+        for (int i = 0; i < n; i++) {
+            System.out.print("Element " + (i + 1) + ": ");
+            numbers[i] = scanner.nextInt();
+        }
+
+        // Input the element to be searched
+        System.out.print("Enter the element to search: ");
+        int searchElement = scanner.nextInt();
+
+        // Close the scanner to prevent resource leaks
+        scanner.close();
+
+        // Perform linear search
+        int index = linearSearch(numbers, searchElement);
+
+        // Display the result
+        if (index != -1) {
+            System.out.println("Element " + searchElement + " found at index " + index);
+        } else {
+            System.out.println("Element " + searchElement + " not found in the array");
+        }
+    }
+
+    // Function to perform linear search in an array
+    private static int linearSearch(int[] arr, int target) {
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == target) {
+                return i; // Element found at index i
+            }
+        }
+        return -1; // Element not found in the array
+    }
+}

@@ -1,0 +1,72 @@
+inheritance java
+import java.util.Scanner;
+
+// Superclass
+class Student {
+    // Member variables
+    protected int rollNo;
+    protected String name;
+
+    // Parameterized constructor for the Student class
+    public Student(int rollNo, String name) {
+        this.rollNo = rollNo;
+        this.name = name;
+    }
+
+    // Method to display student details
+    public void display() {
+        System.out.println("Roll Number: " + rollNo);
+        System.out.println("Name: " + name);
+    }
+}
+
+// Subclass inheriting from the Student class
+class Library extends Student {
+    // Additional member variable in the Library class
+    private int memberNo;
+
+    // Parameterized constructor for the Library class
+    public Library(int rollNo, String name, int memberNo) {
+        // Calling the superclass constructor to initialize rollNo and name
+        super(rollNo, name);
+        this.memberNo = memberNo;
+    }
+
+    // Method to display library details along with student details
+    public void displayLibraryDetails() {
+        // Call the display method from the superclass (Student)
+        super.display();
+
+        // Display additional details from the Library class
+        System.out.println("Library Member Number: " + memberNo);
+    }
+}
+
+public class InheritanceExample {
+    public static void main(String[] args) {
+        // Create an object of the Library class
+        Library libraryMember = inputLibraryDetails();
+
+        // Display details of the library member
+        System.out.println("Details of Library Member:");
+        libraryMember.displayLibraryDetails();
+    }
+
+    // Function to input details for a Library object
+    private static Library inputLibraryDetails() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter Roll Number: ");
+        int rollNo = scanner.nextInt();
+        scanner.nextLine(); // Consume the newline character
+        System.out.print("Enter Name: ");
+        String name = scanner.nextLine();
+        System.out.print("Enter Library Member Number: ");
+        int memberNo = scanner.nextInt();
+
+        scanner.close();
+
+        // Create a Library object with the entered details
+        return new Library(rollNo, name, memberNo);
+    }
+}

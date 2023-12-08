@@ -1,0 +1,40 @@
+// Base class
+class Bank {
+    // Method to calculate interest rate
+    public void interest_rate() {
+        System.out.println("Base class interest rate: 4%");
+    }
+}
+
+// Subclass SBI
+class SBI extends Bank {
+    // Override interest_rate method
+    @Override
+    public void interest_rate() {
+        System.out.println("SBI interest rate: 3.5%");
+    }
+}
+
+// Subclass ICICI
+class ICICI extends Bank {
+    // Override interest_rate method
+    @Override
+    public void interest_rate() {
+        System.out.println("ICICI interest rate: 4.25%");
+    }
+}
+
+// Main class
+public class Main {
+    public static void main(String[] args) {
+        // Creating instances of subclasses
+        Bank sbiBank = new SBI();
+        Bank iciciBank = new ICICI();
+
+        // Calling interest_rate method on SBI instance
+        sbiBank.interest_rate();
+
+        // Calling interest_rate method on ICICI instance
+        iciciBank.interest_rate();
+    }
+}

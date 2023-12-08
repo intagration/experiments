@@ -1,0 +1,43 @@
+string related operations methods of String class.
+
+import java.util.Scanner;
+
+public class StringOperations {
+    public static void main(String[] args) {
+        // Create a Scanner object to take input from the user
+        Scanner scanner = new Scanner(System.in);
+
+        // Input a string
+        System.out.print("Enter a string: ");
+        String inputString = scanner.nextLine();
+
+        // Close the scanner to prevent resource leaks
+        scanner.close();
+
+        // Perform string-related operations using String class methods
+        int length = inputString.length();
+        String upperCase = inputString.toUpperCase();
+        String lowerCase = inputString.toLowerCase();
+        char firstChar = inputString.charAt(0);
+        char lastChar = inputString.charAt(length - 1);
+        boolean startsWithHello = inputString.startsWith("Hello");
+        boolean endsWithWorld = inputString.endsWith("World");
+        boolean containsJava = inputString.contains("Java");
+        String replacedString = inputString.replace('a', 'X');
+        String substring = inputString.substring(2, 5);
+        String trimmedString = inputString.trim();
+
+        // Display the results
+        System.out.println("Length of the string: " + length);
+        System.out.println("Uppercase: " + upperCase);
+        System.out.println("Lowercase: " + lowerCase);
+        System.out.println("First character: " + firstChar);
+        System.out.println("Last character: " + lastChar);
+        System.out.println("Starts with 'Hello': " + startsWithHello);
+        System.out.println("Ends with 'World': " + endsWithWorld);
+        System.out.println("Contains 'Java': " + containsJava);
+        System.out.println("String after replacing 'a' with 'X': " + replacedString);
+        System.out.println("Substring (index 2 to 4): " + substring);
+        System.out.println("Trimmed string: " + trimmedString);
+    }
+}

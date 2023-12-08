@@ -1,0 +1,30 @@
+package java
+             package create;
+
+             public class Circle 
+            {
+	       public int radius=4;
+                   public double calculateArea() 
+                  { 
+                          return 3.14 * radius * radius; 
+                   } 
+             }
+
+
+
+b)	Accessing a package
+
+            package access;
+
+            import create.*;
+
+            public class AreaOfCircle 
+           {
+	    public static void main(String[] args) 
+	    { 
+		  Circle c = new Circle(); 
+		  double area = c.calculateArea(); 
+		  System.out.println("Area of the circle is: " + area); 
+	    } 
+		
+            }

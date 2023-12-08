@@ -1,0 +1,38 @@
+ mathematical operations by Math class.
+import java.util.Scanner;
+
+public class MathOperations {
+    public static void main(String[] args) {
+        // Create a Scanner object to take input from the user
+        Scanner scanner = new Scanner(System.in);
+
+        // Input two numbers
+        System.out.print("Enter the first number: ");
+        double num1 = scanner.nextDouble();
+        System.out.print("Enter the second number: ");
+        double num2 = scanner.nextDouble();
+
+        // Close the scanner to prevent resource leaks
+        scanner.close();
+
+        // Perform mathematical operations using Math class methods
+        double sum = Math.addExact((int) num1, (int) num2); // Note: addExact requires integer parameters
+        double difference = Math.abs(num1 - num2);
+        double product = Math.multiplyExact((int) num1, (int) num2); // Note: multiplyExact requires integer parameters
+        double quotient = num1 / num2;
+        double power = Math.pow(num1, num2);
+        double squareRootNum1 = Math.sqrt(Math.abs(num1));
+        double max = Math.max(num1, num2);
+        double min = Math.min(num1, num2);
+
+        // Display the results
+        System.out.println("Sum: " + sum);
+        System.out.println("Difference: " + difference);
+        System.out.println("Product: " + product);
+        System.out.println("Quotient: " + quotient);
+        System.out.println("Power: " + power);
+        System.out.println("Square Root of |num1|: " + squareRootNum1);
+        System.out.println("Max: " + max);
+        System.out.println("Min: " + min);
+    }
+}

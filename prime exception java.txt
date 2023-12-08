@@ -1,0 +1,54 @@
+prime exception java
+import java.util.Scanner;
+
+// Custom exception class
+class NotPrimeException extends Exception {
+    public NotPrimeException(String message) {
+        super(message);
+    }
+}
+
+// Main class
+public class Main {
+
+    // Method to check if a number is prime
+    private static boolean isPrime(int number) {
+        if (number <= 1) {
+            return false;
+        }
+        for (int i = 2; i <= Math.sqrt(number); i++) {
+            if (number % i == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // Method to accept a number and throw an exception if it is not prime
+    private static void checkPrimeNumber(int number) throws NotPrimeException {
+        if (!isPrime(number)) {
+            throw new NotPrimeException("The number is not prime.");
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        try {
+            System.out.print("Enter a number: ");
+            int userInput = scanner.nextInt();
+
+            // Check if the entered number is prime
+            checkPrimeNumber(userInput);
+
+            System.out.println("The entered number is prime.");
+
+        } catch (NotPrimeException e) {
+            System.out.println("Exception: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error: Invalid input. Please enter a valid integer.");
+        } finally {
+            scanner.close();
+        }
+    }
+}

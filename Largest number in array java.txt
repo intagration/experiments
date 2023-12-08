@@ -1,0 +1,49 @@
+Largest number in array
+import java.util.Scanner;
+
+public class FindLargestInArray {
+    public static void main(String[] args) {
+        // Create a Scanner object to take input from the user
+        Scanner scanner = new Scanner(System.in);
+
+        // Input the number of elements in the array
+        System.out.print("Enter the number of elements (n): ");
+        int n = scanner.nextInt();
+
+        // Create an array to store the numbers
+        int[] numbers = new int[n];
+
+        // Input the elements of the array
+        System.out.println("Enter the elements of the array:");
+        for (int i = 0; i < n; i++) {
+            System.out.print("Element " + (i + 1) + ": ");
+            numbers[i] = scanner.nextInt();
+        }
+
+        // Close the scanner to prevent resource leaks
+        scanner.close();
+
+        // Find the largest number in the array
+        int largestNumber = findLargest(numbers);
+
+        // Display the result
+        System.out.println("The largest number in the array is: " + largestNumber);
+    }
+
+    // Function to find the largest number in an array
+    private static int findLargest(int[] arr) {
+        if (arr.length == 0) {
+            throw new IllegalArgumentException("Array is empty");
+        }
+
+        int largest = arr[0];
+
+        for (int i = 1; i < arr.length; i++) {
+            if (arr[i] > largest) {
+                largest = arr[i];
+            }
+        }
+
+        return largest;
+    }
+}

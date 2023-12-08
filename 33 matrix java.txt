@@ -1,0 +1,64 @@
+3*3 matrix java
+import java.util.Scanner;
+
+public class MatrixAddition {
+    public static void main(String[] args) {
+        // Create a Scanner object to take input from the user
+        Scanner scanner = new Scanner(System.in);
+
+        // Input elements for the first matrix
+        System.out.println("Enter elements for the first 3x3 matrix:");
+        int[][] matrix1 = new int[3][3];
+        inputMatrixElements(scanner, matrix1);
+
+        // Input elements for the second matrix
+        System.out.println("Enter elements for the second 3x3 matrix:");
+        int[][] matrix2 = new int[3][3];
+        inputMatrixElements(scanner, matrix2);
+
+        // Close the scanner to prevent resource leaks
+        scanner.close();
+
+        // Calculate the sum of the matrices
+        int[][] sumMatrix = addMatrices(matrix1, matrix2);
+
+        // Display the result
+        System.out.println("Resultant Matrix (Sum of the Matrices):");
+        displayMatrix(sumMatrix);
+    }
+
+    // Function to input elements for a matrix
+    private static void inputMatrixElements(Scanner scanner, int[][] matrix) {
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++) {
+                System.out.print("Element at position [" + (i + 1) + "][" + (j + 1) + "]: ");
+                matrix[i][j] = scanner.nextInt();
+            }
+        }
+    }
+
+    // Function to add two matrices
+    private static int[][] addMatrices(int[][] matrix1, int[][] matrix2) {
+        int rows = matrix1.length;
+        int columns = matrix1[0].length;
+        int[][] sumMatrix = new int[rows][columns];
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                sumMatrix[i][j] = matrix1[i][j] + matrix2[i][j];
+            }
+        }
+
+        return sumMatrix;
+    }
+
+    // Function to display a matrix
+    private static void displayMatrix(int[][] matrix) {
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++) {
+                System.out.print(matrix[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+}

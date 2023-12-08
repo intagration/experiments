@@ -1,0 +1,16 @@
+age exception java
+import java.util.Scanner; public class Demo1 { 
+static void checkAge() { int age;
+Scanner s = new Scanner(System.in);
+System.out.print("Enter the number you want to check:"); age = s.nextInt();
+if (age < 0) {
+throw new ArithmeticException("Age cannot be Negative");
+}
+else { System.out.println("Welcome");
+}
+}
+
+
+public static void main(String[] args) { checkAge();
+}
+}

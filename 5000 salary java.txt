@@ -1,0 +1,58 @@
+5000 salary java
+import java.util.Scanner;
+
+public class Employee {
+    // Data members
+    private int empid;
+    private String name;
+    private double salary;
+
+    // Parameterized constructor
+    public Employee(int empid, String name, double salary) {
+        this.empid = empid;
+        this.name = name;
+        this.salary = salary;
+    }
+
+    // Method to display employee details
+    public void display() {
+        System.out.println("Employee ID: " + empid);
+        System.out.println("Employee Name: " + name);
+        System.out.println("Salary: $" + salary);
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        // Create an array to store Employee objects
+        Employee[] employees = new Employee[5];
+
+        // Create a Scanner object to take input from the user
+        Scanner scanner = new Scanner(System.in);
+
+        // Input records for 5 employees
+        for (int i = 0; i < employees.length; i++) {
+            System.out.println("Enter details for Employee " + (i + 1) + ":");
+            System.out.print("Employee ID: ");
+            int empid = scanner.nextInt();
+            scanner.nextLine(); // Consume the newline character
+            System.out.print("Employee Name: ");
+            String name = scanner.nextLine();
+            System.out.print("Salary: ");
+            double salary = scanner.nextDouble();
+
+            // Create an Employee object with the entered details
+            employees[i] = new Employee(empid, name, salary);
+        }
+
+        // Close the scanner to prevent resource leaks
+        scanner.close();
+
+        // Display records of employees with salary greater than 5000
+        System.out.println("Employee records with salary greater than 5000:");
+        for (Employee employee : employees) {
+            if (employee.salary > 5000) {
+                employee.display();
+            }
+        }
+    }
+}

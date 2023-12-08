@@ -1,0 +1,64 @@
+interface_salary java
+import java.util.Scanner;
+
+class Student 
+{ 
+      protected int rollNo; 
+      protected String name; 
+
+      void input() 
+      { 
+	Scanner sc=new Scanner(System.in);
+	System.out.println("Enter the Name:");
+	name=sc.next();
+	System.out.println("Enter the Roll no.:");
+	rollNo=sc.nextInt();	
+       } 
+
+       void output() 
+      {
+            System.out.println("\nName: " + name); 
+            System.out.println("\nRoll No: " + rollNo); 
+
+       } 
+ } 
+
+interface Employee 
+{ 
+     double B_SALARY = 50000; // Base salary 
+     double HDR = 10000; // House Rent Allowance 
+     double DA = 8000; // Dearness Allowance 
+
+     void show();  
+} 
+
+class Manager extends Student implements Employee 
+{ 
+        int M_id=1001;
+        double totalSalary; 
+
+        void calculateSalary() 
+        { 
+                  totalSalary = B_SALARY + HDR + DA; 
+  
+        }  
+        public void show() 
+        { 
+                System.out.println("\nManager ID: " +M_id); 
+                System.out.println("\nTotal Salary: " + totalSalary); 
+         }  
+     } 
+    
+    class Main 
+    { 
+        public static void main(String[] args) 
+        { 
+            Manager m= new Manager(); 
+            m.input();
+            m.output();
+            m.calculateSalary(); 
+            m.show(); 
+        } 
+    } 
+ 
+

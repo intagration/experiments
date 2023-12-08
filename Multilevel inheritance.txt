@@ -1,0 +1,102 @@
+Multilevel inheritance
+import java.util.Scanner;
+
+// Superclass
+class Student {
+    // Member variables
+    protected int rollNo;
+    protected String name;
+
+    // Parameterized constructor for the Student class
+    public Student(int rollNo, String name) {
+        this.rollNo = rollNo;
+        this.name = name;
+    }
+
+    // Method to display student details
+    public void displayStudentDetails() {
+        System.out.println("Roll Number: " + rollNo);
+        System.out.println("Name: " + name);
+    }
+}
+
+// Intermediate class inheriting from the Student class
+class Marks extends Student {
+    // Additional member variables in the Marks class
+    protected double marks1;
+    protected double marks2;
+    protected double total;
+
+    // Parameterized constructor for the Marks class
+    public Marks(int rollNo, String name, double marks1, double marks2) {
+        // Calling the superclass constructor to initialize rollNo and name
+        super(rollNo, name);
+        this.marks1 = marks1;
+        this.marks2 = marks2;
+        this.total = marks1 + marks2;
+    }
+
+    // Method to display marks details along with student details
+    public void displayMarksDetails() {
+        // Call the display method from the superclass (Student)
+        super.displayStudentDetails();
+
+        // Display additional details from the Marks class
+        System.out.println("Marks 1: " + marks1);
+        System.out.println("Marks 2: " + marks2);
+        System.out.println("Total Marks: " + total);
+    }
+}
+
+// Subclass inheriting from the Marks class
+class Result extends Marks {
+    // Additional member variable in the Result class
+    private double percentage;
+
+    // Parameterized constructor for the Result class
+    public Result(int rollNo, String name, double marks1, double marks2) {
+        // Calling the superclass constructor to initialize rollNo, name, marks1, and marks2
+        super(rollNo, name, marks1, marks2);
+        this.percentage = (total / 200) * 100;
+    }
+
+    // Method to display result details along with student and marks details
+    public void displayResultDetails() {
+        // Call the display method from the superclass (Marks)
+        super.displayMarksDetails();
+
+        // Display additional details from the Result class
+        System.out.println("Percentage: " + percentage + "%");
+    }
+}
+
+public class MultilevelInheritanceExample {
+    public static void main(String[] args) {
+        // Create an object of the Result class
+        Result studentResult = inputResultDetails();
+
+        // Display details of the student result
+        System.out.println("Details of Student Result:");
+        studentResult.displayResultDetails();
+    }
+
+    // Function to input details for a Result object
+    private static Result inputResultDetails() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter Roll Number: ");
+        int rollNo = scanner.nextInt();
+        scanner.nextLine(); // Consume the newline character
+        System.out.print("Enter Name: ");
+        String name = scanner.nextLine();
+        System.out.print("Enter Marks 1: ");
+        double marks1 = scanner.nextDouble();
+        System.out.print("Enter Marks 2: ");
+        double marks2 = scanner.nextDouble();
+
+        scanner.close();
+
+        // Create a Result object with the entered details
+        return new Result(rollNo, name, marks1, marks2);
+    }
+}

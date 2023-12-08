@@ -1,0 +1,43 @@
+ 5 subjects and percentage
+import java.util.Scanner;
+
+public class CalculatePercentage {
+    public static void main(String[] args) {
+        // Create a Scanner object to take input from the user
+        Scanner scanner = new Scanner(System.in);
+
+        // Input marks for 5 subjects
+        System.out.println("Enter marks for 5 subjects:");
+
+        System.out.print("Subject 1: ");
+        double subject1 = scanner.nextDouble();
+
+        System.out.print("Subject 2: ");
+        double subject2 = scanner.nextDouble();
+
+        System.out.print("Subject 3: ");
+        double subject3 = scanner.nextDouble();
+
+        System.out.print("Subject 4: ");
+        double subject4 = scanner.nextDouble();
+
+        System.out.print("Subject 5: ");
+        double subject5 = scanner.nextDouble();
+
+        // Close the scanner to prevent resource leaks
+        scanner.close();
+
+        // Calculate the total marks
+        double totalMarks = subject1 + subject2 + subject3 + subject4 + subject5;
+
+        // Assuming each subject has a maximum of 100 marks
+        double maxMarksPerSubject = 100;
+
+        // Calculate percentage
+        double percentage = (totalMarks / (5 * maxMarksPerSubject)) * 100;
+
+        // Display the percentage
+        System.out.println("Total Marks: " + totalMarks);
+        System.out.println("Percentage: " + percentage + "%");
+    }
+}

@@ -1,0 +1,42 @@
+ multiplication by function overloading.
+public class MultiplicationOverloading {
+    // Function to multiply two integers
+    public static int multiply(int num1, int num2) {
+        return num1 * num2;
+    }
+
+    // Function to multiply two doubles
+    public static double multiply(double num1, double num2) {
+        return num1 * num2;
+    }
+
+    // Function to multiply an integer and a double
+    public static double multiply(int num1, double num2) {
+        return num1 * num2;
+    }
+
+    // Function to multiply a double and an integer
+    public static double multiply(double num1, int num2) {
+        return num1 * num2;
+    }
+
+    public static void main(String[] args) {
+        // Test the overloaded multiply methods
+
+        // Multiplying two integers
+        int result1 = multiply(5, 10);
+        System.out.println("Result 1: " + result1);
+
+        // Multiplying two doubles
+        double result2 = multiply(5.5, 2.0);
+        System.out.println("Result 2: " + result2);
+
+        // Multiplying an integer and a double
+        double result3 = multiply(3, 4.5);
+        System.out.println("Result 3: " + result3);
+
+        // Multiplying a double and an integer
+        double result4 = multiply(2.5, 3);
+        System.out.println("Result 4: " + result4);
+    }
+}

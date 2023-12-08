@@ -1,0 +1,41 @@
+string exception java
+import java.util.Scanner;
+
+// Custom exception class
+class NotStartsWithSException extends Exception {
+    public NotStartsWithSException(String message) {
+        super(message);
+    }
+}
+
+// Main class
+public class Main {
+
+    // Method to check if a string starts with 's'
+    private static void checkString(String input) throws NotStartsWithSException {
+        if (!input.toLowerCase().startsWith("s")) {
+            throw new NotStartsWithSException("The string does not start with 's'.");
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        try {
+            System.out.print("Enter a string: ");
+            String userInput = scanner.nextLine();
+
+            // Check if the entered string starts with 's'
+            checkString(userInput);
+
+            System.out.println("The entered string starts with 's'.");
+
+        } catch (NotStartsWithSException e) {
+            System.out.println("Exception: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error: An unexpected error occurred.");
+        } finally {
+            scanner.close();
+        }
+    }
+}

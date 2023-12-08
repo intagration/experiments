@@ -1,0 +1,61 @@
+Box java 
+public class Box {
+    // Data members
+    private double length;
+    private double width;
+    private double height;
+
+    // Default constructor
+    public Box() {
+        // Default values for length, width, and height
+        length = 1.0;
+        width = 1.0;
+        height = 1.0;
+    }
+
+    // Parameterized constructor with all dimensions
+    public Box(double length, double width, double height) {
+        this.length = length;
+        this.width = width;
+        this.height = height;
+    }
+
+    // Parameterized constructor with a common dimension
+    public Box(double dimension) {
+        this.length = dimension;
+        this.width = dimension;
+        this.height = dimension;
+    }
+
+    // Method to calculate and return the volume of the box
+    public double calculateVolume() {
+        return length * width * height;
+    }
+
+    // Method to display box details
+    public void display() {
+        System.out.println("Box Dimensions:");
+        System.out.println("Length: " + length);
+        System.out.println("Width: " + width);
+        System.out.println("Height: " + height);
+        System.out.println("Volume: " + calculateVolume());
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        // Create three objects of the Box class using different constructors
+        Box box1 = new Box(); // Default constructor
+        Box box2 = new Box(2.5, 3.0, 4.0); // Parameterized constructor with all dimensions
+        Box box3 = new Box(2.0); // Parameterized constructor with a common dimension
+
+        // Display details of all boxes
+        System.out.println("Details of Box 1:");
+        box1.display();
+
+        System.out.println("Details of Box 2:");
+        box2.display();
+
+        System.out.println("Details of Box 3:");
+        box3.display();
+    }
+}
